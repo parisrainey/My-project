@@ -41,7 +41,7 @@ Shader "Custom/UnlitLambertPhong"
             {
                 v2f o;
                 o.vertex = UnityObjectToClipPos(v.vertex);
-                o.normal = noramlize(mul(unity_ObjectToWorld, v.normal));
+                o.normal = normalize(mul(unity_ObjectToWorld, v.normal));
                 o.uv = TRANSFORM_TEX(v.uv, _MainTex);
                 UNITY_TRANSFER_FOG(o,o.vertex);
                 return o;
@@ -50,9 +50,9 @@ Shader "Custom/UnlitLambertPhong"
             fixed4 frag (v2f i) : SV_Target
             {
                 float ambient = 0.1f;
-                float lambert = saturate(dot(i.normal, _WorldSpaceLightPos0));
+                float lambert = saturate(dot(i.normal, _WorldSpaceLightPos0)); 
                 // sample the texture
-                fixed4 col = tex2D(_MainTex, i.uv);
+                fixed4 col = tex2D(_MainTex, i.uv) * (ambient + lambert);
                 // apply fog
                 UNITY_APPLY_FOG(i.fogCoord, col);
                 return col;
