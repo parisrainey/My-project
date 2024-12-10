@@ -1,4 +1,4 @@
-Shader "Custom/RimLighting"
+ Shader "Custom/RimLighting"
 {
     Properties
     {
